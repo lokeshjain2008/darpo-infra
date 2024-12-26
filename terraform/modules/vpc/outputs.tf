@@ -15,7 +15,7 @@ output "public_subnets" {
 
 output "database_subnet_group" {
   description = "ID of database subnet group"
-  value       = module.vpc.database_subnet_group
+  value       = module.vpc.database_subnet_group_name
 }
 
 output "database_subnets" {
