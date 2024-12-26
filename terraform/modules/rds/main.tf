@@ -5,7 +5,7 @@ module "db" {
   identifier = "darpo-${var.environment}"
 
   engine                = "postgres"
-  engine_version        = "15.3"
+  engine_version        = "15.4"  # Updated to available version
   family                = "postgres15"
   major_engine_version  = "15"
   instance_class        = var.instance_class
