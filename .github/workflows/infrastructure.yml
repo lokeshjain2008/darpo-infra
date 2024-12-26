@@ -68,3 +68,11 @@ jobs:
         run: |
           cd terraform/environments/${{ github.ref == 'refs/heads/main' && 'prod' || 'dev' }}
           terraform apply -auto-approve tfplan
+
+      - name: Configure kubectl
+        run: |
+          aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
+
+      - name: Deploy Kubernetes Resources
+        run: |
+          kubectl apply -k kubernetes/overlays/${{ github.ref == 'refs/heads/main' && 'prod' || 'dev' }}
