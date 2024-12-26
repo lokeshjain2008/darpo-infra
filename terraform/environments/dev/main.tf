@@ -21,10 +21,10 @@ module "eks" {
   vpc_id          = module.vpc.vpc_id
   subnet_ids      = module.vpc.private_subnets
   environment     = "dev"
-  desired_size    = 2
-  min_size        = 1
-  max_size        = 4
-  instance_types  = ["t3.medium"]  # Reduced instance size for dev
+  desired_size    = 1
+  min_size        = 0
+  max_size        = 1
+  instance_types  = ["t3.medium"]
 }
 
 module "rds" {
