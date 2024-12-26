@@ -1,6 +1,6 @@
 resource "aws_security_group" "rds" {
   name        = "darpo-${var.environment}-rds"
-  description = "Security group for RDS PostgreSQL"
+  description = "Security group for RDS PostgreSQL in production"
   vpc_id      = module.vpc.vpc_id
 
   ingress {
@@ -22,5 +22,6 @@ resource "aws_security_group" "rds" {
     Name        = "darpo-${var.environment}-rds"
     Environment = var.environment
     Terraform   = "true"
+    ManagedBy   = "terraform"
   }
 }

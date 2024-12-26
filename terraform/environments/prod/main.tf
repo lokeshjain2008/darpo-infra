@@ -7,10 +7,10 @@ module "vpc" {
 
   vpc_name = "darpo-prod"
   vpc_cidr = "10.1.0.0/16"
-  availability_zones = ["ap-south-1a", "ap-south-1b"]
-  private_subnet_cidrs = ["10.1.1.0/24", "10.1.2.0/24"]
-  public_subnet_cidrs  = ["10.1.101.0/24", "10.1.102.0/24"]
-  environment = "prod"
+  availability_zones = ["ap-south-1a", "ap-south-1b", "ap-south-1c"]
+  private_subnet_cidrs = ["10.1.1.0/24", "10.1.2.0/24", "10.1.3.0/24"]
+  public_subnet_cidrs  = ["10.1.101.0/24", "10.1.102.0/24", "10.1.103.0/24"]
+  environment = var.environment
   single_nat_gateway = false  # High availability for production
 }
 
@@ -20,17 +20,17 @@ module "eks" {
   cluster_name    = "darpo-prod"
   vpc_id          = module.vpc.vpc_id
   subnet_ids      = module.vpc.private_subnets
-  environment     = "prod"
+  environment     = var.environment
   desired_size    = 3
   min_size        = 3
   max_size        = 10
-  instance_types  = ["t3.large"]
+  instance_types  = ["t3.xlarge"]
 }
 
 module "rds" {
   source = "../../modules/rds"
 
-  environment = "prod"
+  environment = var.environment
   instance_class = "db.t3.large"
   allocated_storage = 100
   max_allocated_storage = 1000
