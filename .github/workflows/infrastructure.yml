@@ -24,6 +24,8 @@ jobs:
         run: terraform fmt -check -recursive
         
       - name: Terraform Validate
+        env:
+          TF_VAR_db_username: dummy-value # Used only for validation
         run: |
           cd terraform/environments/${{ github.ref == 'refs/heads/main' && 'prod' || 'dev' }}
           terraform init -backend=false
@@ -54,11 +56,15 @@ jobs:
           terraform init
           
       - name: Terraform Plan
+        env:
+          TF_VAR_db_username: ${{ secrets.DB_USERNAME }}
         run: |
           cd terraform/environments/${{ github.ref == 'refs/heads/main' && 'prod' || 'dev' }}
           terraform plan -out=tfplan
           
       - name: Terraform Apply
+        env:
+          TF_VAR_db_username: ${{ secrets.DB_USERNAME }}
         run: |
           cd terraform/environments/${{ github.ref == 'refs/heads/main' && 'prod' || 'dev' }}
           terraform apply -auto-approve tfplan
