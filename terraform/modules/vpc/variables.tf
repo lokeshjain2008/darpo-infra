@@ -21,3 +21,9 @@ variable "public_subnet_cidrs" {
 variable "environment" {
   type = string
 }
+
+variable "single_nat_gateway" {
+  type    = bool
+  default = true
+  description = "Should only a single NAT Gateway be created?"
+}
