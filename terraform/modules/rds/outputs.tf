@@ -13,12 +13,22 @@ output "db_instance_port" {
   value       = module.db.db_instance_port
 }
 
-output "db_subnet_group_name" {
-  description = "The database subnet group name"
-  value       = module.db.db_subnet_group_name
+output "db_instance_address" {
+  description = "The address of the RDS instance"
+  value       = module.db.db_instance_address
 }
 
-output "db_instance_id" {
-  description = "The RDS instance ID"
-  value       = module.db.db_instance_id
+output "db_instance_arn" {
+  description = "The ARN of the RDS instance"
+  value       = module.db.db_instance_arn
+}
+
+output "db_instance_availability_zone" {
+  description = "The availability zone of the RDS instance"
+  value       = module.db.db_instance_availability_zone
+}
+
+output "db_instance_status" {
+  description = "The status of the RDS instance"
+  value       = module.db.db_instance_status
 }
