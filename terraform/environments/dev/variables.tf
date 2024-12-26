@@ -13,5 +13,5 @@ variable "db_username" {
 variable "environment" {
   description = "Environment name"
   type        = string
-  default     = "prod"
+  default     = "dev"
 }
