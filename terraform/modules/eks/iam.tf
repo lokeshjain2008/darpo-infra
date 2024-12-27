@@ -36,24 +36,19 @@ resource "aws_iam_role_policy" "github_actions" {
           "ecr:*"
         ]
         Resource = "*"
-      },
-      {
-        Effect = "Allow"
-        Action = [
-          "eks:DescribeCluster"
-        ]
-        Resource = module.eks.cluster_arn
       }
     ]
   })
 }
 
-# Add GitHub Actions role to EKS auth configmap
+# Add GitHub Actions role to aws-auth ConfigMap
 resource "kubernetes_config_map_v1_data" "aws_auth" {
   metadata {
     name      = "aws-auth"
     namespace = "kube-system"
   }
+
+  force = true
 
   data = {
     mapRoles = yamlencode(
@@ -67,5 +62,5 @@ resource "kubernetes_config_map_v1_data" "aws_auth" {
     )
   }
 
-  depends_on = [module.eks.cluster_id]
+  depends_on = [module.eks]
 }
