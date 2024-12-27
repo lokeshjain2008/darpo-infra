@@ -1,4 +1,4 @@
-# AWS Auth ConfigMap configuration
+# Add GitHub Actions role to aws-auth ConfigMap
 resource "kubernetes_config_map_v1_data" "aws_auth" {
   metadata {
     name      = "aws-auth"
@@ -11,7 +11,7 @@ resource "kubernetes_config_map_v1_data" "aws_auth" {
     mapRoles = yamlencode(
       [
         {
-          rolearn  = aws_iam_role.github_actions.arn
+          rolearn  = module.eks.github_actions_role_arn
           username = "github-actions"
           groups   = ["system:masters"]
         }
