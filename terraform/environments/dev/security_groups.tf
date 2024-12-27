@@ -1,14 +1,13 @@
 resource "aws_security_group" "rds" {
-  name        = "darpo-${var.environment}-rds"
+  name_prefix = "darpo-${var.environment}-rds-"
   description = "Security group for RDS PostgreSQL"
   vpc_id      = module.vpc.vpc_id
 
   ingress {
-    description = "PostgreSQL from EKS"
-    from_port   = 5432
-    to_port     = 5432
-    protocol    = "tcp"
-    # We'll restrict this to the EKS cluster security group
+    description     = "PostgreSQL from EKS"
+    from_port       = 5432
+    to_port         = 5432
+    protocol        = "tcp"
     security_groups = [module.eks.cluster_security_group_id]
   }
 
@@ -22,5 +21,10 @@ resource "aws_security_group" "rds" {
   tags = {
     Name        = "darpo-${var.environment}-rds"
     Environment = var.environment
+    Terraform   = "true"
+    ManagedBy   = "terraform"
   }
+
+  # Ensure this is created after VPC
+  depends_on = [module.vpc]
 }
