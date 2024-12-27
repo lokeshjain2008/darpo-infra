@@ -30,6 +30,8 @@ module "eks" {
 module "rds" {
   source = "../../modules/rds"
 
+  depends_on = [module.vpc, aws_security_group.rds]
+
   environment = var.environment
   instance_class = "db.t3.large"
   allocated_storage = 100
