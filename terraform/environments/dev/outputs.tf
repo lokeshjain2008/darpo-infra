@@ -1,3 +1,5 @@
+# Infrastructure Outputs
+
 # ECR outputs
 output "ecr_repository_url" {
   description = "ECR Repository URL"
@@ -26,7 +28,7 @@ output "rds_database_name" {
   value       = module.rds.db_instance_name
 }
 
-# Debug outputs
+# Debug outputs (for verification and troubleshooting)
 output "debug_vpc_id" {
   description = "VPC ID from VPC module"
   value       = module.vpc.vpc_id
