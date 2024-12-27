@@ -1,26 +1,8 @@
-# Data sources for EKS authentication
-data "aws_eks_cluster" "cluster" {
-  name = module.eks.cluster_id
-  depends_on = [module.eks]
-}
-
-data "aws_eks_cluster_auth" "cluster" {
-  name = module.eks.cluster_id
-  depends_on = [module.eks]
-}
-
-# Provider configurations
 provider "aws" {
   region = var.aws_region
 }
 
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
-}
-
-# Module configurations
+# Infrastructure modules
 module "vpc" {
   source = "../../modules/vpc"
 
