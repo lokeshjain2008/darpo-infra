@@ -42,3 +42,10 @@ module "rds" {
   vpc_security_group_ids = [aws_security_group.rds.id]
   multi_az = false
 }
+
+module "ecr" {
+  source = "../../modules/ecr"
+
+  repository_name = "darpo-api"
+  environment     = var.environment
+}
