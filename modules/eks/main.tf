@@ -9,6 +9,9 @@ module "eks" {
   subnet_ids = var.subnet_ids
 
   cluster_endpoint_public_access = true
+  
+  # Remove any Kubernetes provider dependencies
+  manage_aws_auth = false
 
   eks_managed_node_groups = {
     main = {
