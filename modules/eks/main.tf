@@ -10,8 +10,8 @@ module "eks" {
 
   cluster_endpoint_public_access = true
   
-  # Remove any Kubernetes provider dependencies
-  manage_aws_auth = false
+  # Explicitly disable aws-auth management
+  manage_aws_auth_configmap = false
 
   eks_managed_node_groups = {
     main = {
