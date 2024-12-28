@@ -9,9 +9,13 @@ module "eks" {
   subnet_ids = var.subnet_ids
 
   cluster_endpoint_public_access = true
-  
-  # Explicitly disable aws-auth management
-  manage_aws_auth_configmap = false
+
+  # Completely disable auth configuration in the module
+  manage_aws_auth = false
+  create_aws_auth_configmap = false
+  aws_auth_roles = []
+  aws_auth_users = []
+  aws_auth_accounts = []
 
   eks_managed_node_groups = {
     main = {
